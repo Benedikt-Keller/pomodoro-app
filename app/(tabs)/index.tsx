@@ -1,5 +1,5 @@
 import { sortRoutes } from 'expo-router/build/Route';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Button } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
@@ -26,10 +26,12 @@ export default function TabOneScreen() {
     }
   }
   const timerDate = new Date(timerCount)
-  console.log(timerDate.getMinutes(), timerDate.getSeconds())
-  if (timerDate.getMinutes() == 0 && timerDate.getSeconds() == 0){
-  
-  }
+  useEffect(() => { 
+    if (timerCount === 0) {
+      stopTimer()
+      setTimerCount(FOCUS_TIME_MINUTS)
+    }
+   }, [timerCount])
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Timer</Text>
